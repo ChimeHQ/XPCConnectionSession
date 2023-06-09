@@ -7,7 +7,7 @@ This thing is still pretty young, and is missing a lot of features. Plus, `XPCSe
 
 Features:
 
-- Compabile with existing `NSXPCConnection` instances
+- Compatible with existing `NSXPCConnection` instances
 - Swift concurrency support
 - `XPCSession` extensions to add Swift concurrency support where possible
 
