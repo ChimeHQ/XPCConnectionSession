@@ -47,12 +47,15 @@ extension IncomingHandler: XPCConnectionSessionCommunicationProtocol {
 	}
 }
 
-/// A class that emulates the behavior and API of `XPCSession`.
+/// A type that emulates the behavior and API of `XPCSession`.
 public final class XPCConnectionSession: @unchecked Sendable {
 	private let connection: NSXPCConnection
 	private let queue = DispatchQueue(label: "com.chimehq.XPCConnectionSession")
 	private let channelHandler = IncomingHandler()
-	
+
+	/// Initialize the session with an existing NSXPCConnection instance.
+	///
+	/// The initializing session **must** never be used once this is done. Effectively, this is a consuming operation, but that is currently not possible to express.
 	public init(connection: NSXPCConnection) {
 		self.connection = connection
 
@@ -73,6 +76,10 @@ public final class XPCConnectionSession: @unchecked Sendable {
 
 			self.connection.activate()
 		}
+	}
+
+	public convenience init(serviceName: String) {
+		self.init(connection: NSXPCConnection(serviceName: serviceName))
 	}
 
 	public func activate() throws {
